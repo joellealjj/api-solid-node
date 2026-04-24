@@ -49,15 +49,39 @@ API de uma aplicação no estilo GymPass desenvolvida em Node.js com TypeScript,
 - [x] Todas listas de dados precisam estar paginadas com 20 itens por página;
 - [x] O usuário deve ser identificado por um JWT (JSON Web Token);
 
-<!--START_SECTION:footer-->
+## CONFIGURAÇÃO
+> NEW PROJECT SERVER
 
-<br />
-<br />
+| Comando | Descrição|
+| ------- | -------- |
+| npm init -y | criar projeto |
+| npm i typescript tsx tsup @types/node -D | tsx entender typescript - tsup criar build do app
+| npx tsc --init | criar tsconfig e atualizar o `"targuet": "es2020"` |
+| npm i fastify | trabalhar com framework |
+| npm run dev | executa projeto |
 
-<p align="center">
-  <a href="https://discord.gg/rocketseat" target="_blank">
-    <img align="center" src="https://storage.googleapis.com/golden-wind/comunidade/rodape.svg" alt="banner"/>
-  </a>
-</p>
+## `src/app.ts`
+```javascript
+import fastify from "fastify";
+export const app = fastify();
+```
 
-<!--END_SECTION:footer-->
+## `src/server.ts`
+```javascript
+import { app } from "./app";
+app.listen({
+	host: '0.0.0.0',
+	port: 3333,
+}).then(() => {
+	console.log('HTTP Server Running!');
+});
+```
+
+## `package.json``
+```javascript
+scripts: {
+	"start:dev": "tsx watch src/server.ts", // roda em dev
+	"start": "node build/server.js", // roda em prod
+	"build": "tsup src --out-dir build", // converte tsx para js
+}
+```
